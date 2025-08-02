@@ -130,7 +130,12 @@ TOOLS
 
 RECOMMENDATIONS
 -- LIST ACTIONS
--- ASSIGN ROLES
+* Because Nozzle 2 and 4 have not been replace in over 17 months and since it causes 95% of the underfilled issues, we recommend that they should be replaced ( by Maintenance) and immediately.
+* Given that the maintenance was overdue by 17 months and this went unnoticed, it is recommended that a formal policy be implemented to ensure all maintenance schedules are strictly monitored and adhered to, to prevent future occurrences (by Production line Manager)
+* Because defect trends were not monitored, we recommend building a dashboard to track maintenance schedules and fill rate in real time to enable timely detection of any anomalies. (Data Team)
+
+WHY WE ARE CONFIDENT THE FIX WILL WORK
+* 
 
 
 
