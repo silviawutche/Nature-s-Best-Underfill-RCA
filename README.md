@@ -9,7 +9,7 @@ There is a growing rate of underfilled bottles being produced on Line A. We donâ
 #### Who are the stakeholders
 * Quality Control Manager: Ensures product meets quality standards and flags any issues
 * Maintenance Lead: Keeps machines running smoothly and handles repairs
-* Production Line Manager: Manages daily output on Line A
+* Production Line Manager: Manages daily output on Line 1
 * Plant Director: Leads the full plant operation
 
 ### BUSINESS IMPACT
@@ -61,10 +61,54 @@ We used a Fishbone Diagram to map these hypotheses
 ![Fishbone Diagram](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Fishbone%20diagram.png)
 
 
-ANALYSIS
--- HOW WE TESTED EACH HYPOTHESES
--- WHAT METRICS WE CALCULATED
--- QUERIES AND LOGIC USED (VIEWS)
+## ANALYSIS
+#### WHAT METRICS WE CALCULATED
+To guide our analysis and validate each hypotheses, we calculated key metrics
+* Underfill Rate (Before and after Jume 28)
+* Underfill Rate Trend
+* Juice waste
+* Underfill cost
+#### HOW WE TESTED EACH HYPOTHESES
+We designed our analysis to test each hypothesis
+* Shift: We segmented production into Morning, Evening and Saturday. Underfill rates was consistent accross all shifts which made us to rule this assumption out.
+* Juice viscosity: 
+
+### QUERIES AND LOGIC USED (VIEWS)
+We created a single unified view to simpplify analysis and reuse in PowerBi
+###### Logic
+```sql 
+CREATE VIEW all_metrics AS
+SELECT Datekey, NozzleID_Natural,
+CASE WHEN DateKey < '2025-06-28' THEN 'Before' ELSE 'After' END AS period,
+COUNT(BottleBatchID_Natural) AS total_bottles,
+SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN 1 ELSE 0 END) AS bottles_lost,
+SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN 1 ELSE 0 END) 
+* 100.0/COUNT(BottleBatchID_Natural) AS underfill_bottle_percent,
+
+(SUM(UnderfillAmount_ml) * -1)/1000 AS total_underfilled_juice,
+SUM(CASE WHEN defect_type IN ('Underfilled', 'both') 
+THEN UnderfillAmount_ml * -1 ELSE 0 END)/1000 AS total_juice_lost,
+
+SUM(CASE WHEN defect_type IN ('Underfilled', 'both') 
+THEN UnderfillAmount_ml * -1 ELSE 0 END) * 100.0/(SUM(UnderfillAmount_ml) * -1) AS juice_waste_percent,
+
+
+SUM(CostPerBottle_NGN) total_cost, 
+SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN CostPerBottle_NGN ELSE 0 END) AS amount_lost,
+SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN CostPerBottle_NGN ELSE 0 END)*100.0/
+SUM(CostPerBottle_NGN) AS amount_lost_percent
+
+FROM FactProductionEvent f
+JOIN DimBottleBatch b ON f.BottleBatchSK = b.BottleBatchSK
+JOIN DimNozzle n ON f.FillerNozzleSK = n.NozzleSK
+WHERE LineID = 'Line1' AND FillerMachineID_Natural = 'Filler_11'
+
+GROUP BY Datekey, NozzleID_Natural,
+CASE WHEN DateKey < '2025-06-28' THEN 'Before' ELSE 'After' END
+
+ORDER BY DateKey,NozzleID_Natural;
+```
+
 
 ROOT CAUSE
 -- WHAT THE DATA PROVED
