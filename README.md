@@ -32,7 +32,8 @@ There's one snowflake element:
   
 ### ER DIAGRAM 
 We designed an ER diagram to visualize table relationships and track foreign keys used during analysis.
-(ER diagram)[https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/ER%20Diagram.pdf]
+(ER diagram)[ER Diagram.pdf](https://github.com/user-attachments/files/21560030/ER.Diagram.pdf)
+
 
 DATA CLEANING
 -- TIMESTAMP
