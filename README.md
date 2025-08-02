@@ -46,8 +46,9 @@ The cleaning was done in four phases
 -- STANDARDIZATION OF TEXT VALUES
 -- LOGICAL INCONSISTENCIES
 
-Before                                             | After
-!(https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/dirty%20event%20table.PNG)    | !(https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Clean_event%20table.PNG)
+|Before|  After|
+|------|--------|
+| ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/dirty%20event%20table.PNG) | ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Clean_event%20table.PNG)|
 
 HYPOTHESES
 -- WHAT DID YOU INITIALLY SUSPECTED
