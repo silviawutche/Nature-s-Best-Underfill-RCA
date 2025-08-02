@@ -116,7 +116,10 @@ Using the **5 Whys**, we traced the root cause to worn out nozzles that have not
 ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Root%20Cause%20Identification.png)
 -- 5 WHYS
 
-QUERY OPTIMIZATION
+### QUERY OPTIMIZATION
+We identified bottleneck when working on the production data and we tried to imprve performance by:
+* Adding a clustered index on the Date column: This was because most of the queries were filtered and grouped by date..this helped speed performance
+* Adding a filtered index on the defect_type column: This was because we frequently used the WHERE clause here
 -- WHAT INDEXES 
 -- HOW PERFORMANCE IMPROVED
 
