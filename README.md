@@ -32,7 +32,8 @@ There's one snowflake element:
   
 ### ER DIAGRAM 
 We designed an ER diagram to visualize table relationships and track foreign keys used during analysis.
-(ER diagram)[ER Diagram.pdf](https://github.com/user-attachments/files/21560030/ER.Diagram.pdf)
+(ER diagram)<img width="751" height="793" alt="ER Diagram" src="https://github.com/user-attachments/assets/c1a111ce-f692-4c7e-922f-0dd3c68f954b" />
+
 
 
 DATA CLEANING
