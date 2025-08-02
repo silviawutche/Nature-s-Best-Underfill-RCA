@@ -32,15 +32,22 @@ There's one snowflake element:
   
 ### ER DIAGRAM 
 We designed an ER diagram to visualize table relationships and track foreign keys used during analysis.
-(ER diagram)<img width="751" height="793" alt="ER Diagram" src="https://github.com/user-attachments/assets/c1a111ce-f692-4c7e-922f-0dd3c68f954b" />
+<img width="751" height="793" alt="ER Diagram" src="https://github.com/user-attachments/assets/c1a111ce-f692-4c7e-922f-0dd3c68f954b" />
 
 
+## DATA CLEANING - 4- Phase Process
+The cleaning was done in four phases
+1. Phase 1: Timestamp
+   * Timestamps are critical for trend analysis, cleaning them first ensured that sorting, filtering and comparisons worked properly. We fixed malformed and inconsistent formats, recast from text to datetime.
 
-DATA CLEANING
--- TIMESTAMP
--- NUMERIC CONVERSIONS
+2. Phase 2: Numeric Corrections
+   * We converted fill volume, temperature colums to numeric formats. Replaced text strings like 'Sensor broken' with nulls. This ensured that metrics are reliable.
+   
 -- STANDARDIZATION OF TEXT VALUES
 -- LOGICAL INCONSISTENCIES
+
+Before                                             | After
+![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/dirty%20event%20table.PNG)    | ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Clean_event%20table.PNG)
 
 HYPOTHESES
 -- WHAT DID YOU INITIALLY SUSPECTED
