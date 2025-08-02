@@ -1,17 +1,39 @@
 # Nature-s-Best-Underfill-RCA
 
-* CONTEXT AND PROBLEM
-*  WHAT WAS GOING ON
-*   WHO ARE THE STAKEHOLDERS
+### CONTEXT AND PROBLEM
+Nature’s Best Juice Co. is currently dealing with a production issue on Line 1. Over the past several days, there's been a noticeable and rising number of underfilled bottles. QA has flagged it as a priority defect trend, but the cause is still unclear.
 
-BUSINESS IMPACT
--- WHAT'S AT STAKE
--- QUANTITY LOST
+#### Problem Statement
+There is a growing rate of underfilled bottles being produced on Line A. We don’t yet know the exact start date or what's driving the issue, but it appears to be gradually getting worse
 
-DATA UNDERSTANDING
--- WHAT DATASET DID YOU USE
--- TABLES AND WHAT THEY MEAN
--- ER DIAGRAM 
+#### Who are the stakeholders
+* Quality Control Manager: Ensures product meets quality standards and flags any issues
+* Maintenance Lead: Keeps machines running smoothly and handles repairs
+* Production Line Manager: Manages daily output on Line A
+* Plant Director: Leads the full plant operation
+
+### BUSINESS IMPACT
+We calculated the fallout from the 18 days of the underfill issues:
+* **21544 underfilled bottles**
+* At ₦85 and ₦73 per bottle, that's **#485,189** in lost product
+* **38 Litres** of Juice was wasted
+
+
+### Data Exploration and Schema Design
+We worked on a structured production dataset built around a star schema with a central fact table called "FactProductionEvent"
+* DimDate -- This is the calendar table
+* DimMachine -- This table lists all the production machines in our factory.
+* DimNozzle -- This table provides details about the small parts (nozzles) on our juice filling machines.
+* DimJuiceBatch -- This table details each large quantity (batch) of juice we use
+* DimBottleBatch -- This table provides information about each delivery (batch) of empty bottles we receive
+* DimSupplier -- This table contains information about the companies that supply us with empty bottles
+
+There's one snowflake element: 
+  
+### ER DIAGRAM 
+We designed an ER diagram to visualize table relationships and track foreign keys used during analysis.
+(ER diagram)[ER Diagram.pdf](https://github.com/user-attachments/files/21560030/ER.Diagram.pdf)
+
 
 DATA CLEANING
 -- TIMESTAMP
