@@ -50,8 +50,16 @@ The cleaning was done in four phases
 |------|--------|
 | ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/dirty%20event%20table.PNG) | ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Clean_event%20table.PNG)|
 
-HYPOTHESES
--- WHAT DID YOU INITIALLY SUSPECTED
+### Hypothesis Exploration
+Before we confirmed the root cause, we explore the following hypthesis:
+* Machine Cause: Filler is the root cause
+* Shift related
+* Change in juice viscosity and type
+* Bottle change from suppliers
+
+We used a Fishbone Diagram to map these hypotheses
+![Fishbone Diagram](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Fishbone%20diagram.png)
+
 
 ANALYSIS
 -- HOW WE TESTED EACH HYPOTHESES
