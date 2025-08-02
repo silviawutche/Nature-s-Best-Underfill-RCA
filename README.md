@@ -110,8 +110,10 @@ ORDER BY DateKey,NozzleID_Natural;
 ```
 
 
-ROOT CAUSE
--- WHAT THE DATA PROVED
+### Root Cause Summary
+After analyzing underfill patterns by shift, juice batch and also the Line 1 filler, we found that over 95% of the underfilled bottles came from **Nozzles 2 and 4**, with the issue starting after June 28(spike start). These Nozzles have shown no failure or problems prior to the spike date.
+Using the **5 Whys**, we traced the root cause to worn out nozzles that have not been replaced in over 40 months because there was no monitoring procedures.
+!(https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Root%20Cause%20Identification.png)
 -- 5 WHYS
 
 QUERY OPTIMIZATION
