@@ -170,12 +170,12 @@ We identified bottleneck when working on the production data and we tried to imp
 * Adding a non-clustered index on FillerNozzleSK (a foreign key heavily used in joins)
 *Results*: CPU usage remained stable at 0.7; I/O reduced from 37.54 to 24.60.
 
-VISUALIZATIONS
+### VISUALIZATIONS
 -- CHARTS USED AND WHY
 -- THE STORY EACH CHART TOOL
 
 
-RECOMMENDATIONS
+### RECOMMENDATIONS
 -- LIST ACTIONS
 * Because Nozzle 2 and 4 have not been replace in over 17 months and since it causes 95% of the underfilled issues, we recommend that they should be replaced ( by Maintenance) and immediately.
 * Given that the maintenance was overdue by 17 months and this went unnoticed, it is recommended that a formal policy be implemented to ensure all maintenance schedules are strictly monitored and adhered to, to prevent future occurrences (by Production line Manager)
