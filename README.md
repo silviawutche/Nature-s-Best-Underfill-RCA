@@ -186,7 +186,7 @@ Together, these measures addressed both the symptom (underfill) and the cause (l
 
 
 * Over 90% of underfilled bottles during the spike were traced to Nozzles 2 and 4
-   These nozzles had no issues prior to June 23, confirming a recent degradation
+   ,these nozzles had no issues prior to June 23, confirming a recent issue
 
 * The spike started immediately after June 20, with no changes in juice type, shift schedule, or bottle supplier
 
