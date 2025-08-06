@@ -77,36 +77,82 @@ We designed our analysis to test each hypothesis
 We created a single unified view to simpplify analysis and reuse in PowerBi
 ###### Logic
 ```sql 
+-- Create a view to summarize production metrics on Line 1 using Filler_11
 CREATE VIEW all_metrics AS
-SELECT Datekey, NozzleID_Natural,
-CASE WHEN DateKey < '2025-06-28' THEN 'Before' ELSE 'After' END AS period,
-COUNT(BottleBatchID_Natural) AS total_bottles,
-SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN 1 ELSE 0 END) AS bottles_lost,
-SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN 1 ELSE 0 END) 
-* 100.0/COUNT(BottleBatchID_Natural) AS underfill_bottle_percent,
+WITH prepped_data AS (
+    SELECT 
+        f.DateKey,
+        n.NozzleID_Natural,
+        -- Create a period category based on a cutoff date
+        CASE 
+            WHEN f.DateKey < '2025-06-28' THEN 'Before' 
+            ELSE 'After' 
+        END AS period,
+        b.BottleBatchID_Natural,
+        f.defect_type,
+        f.UnderfillAmount_ml,
+        f.CostPerBottle_NGN
+    FROM FactProductionEvent f
+    JOIN DimBottleBatch b ON f.BottleBatchSK = b.BottleBatchSK
+    JOIN DimNozzle n ON f.FillerNozzleSK = n.NozzleSK
+    WHERE f.LineID = 'Line1' 
+      AND f.FillerMachineID_Natural = 'Filler_11'
+)
 
-(SUM(UnderfillAmount_ml) * -1)/1000 AS total_underfilled_juice,
-SUM(CASE WHEN defect_type IN ('Underfilled', 'both') 
-THEN UnderfillAmount_ml * -1 ELSE 0 END)/1000 AS total_juice_lost,
+SELECT 
+    DateKey,
+    NozzleID_Natural,
+    period,
 
-SUM(CASE WHEN defect_type IN ('Underfilled', 'both') 
-THEN UnderfillAmount_ml * -1 ELSE 0 END) * 100.0/(SUM(UnderfillAmount_ml) * -1) AS juice_waste_percent,
+    COUNT(BottleBatchID_Natural) AS total_bottles,
 
+    -- Count of bottles affected by underfill
+    SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN 1 ELSE 0 END) AS underfilled_bottles,
 
-SUM(CostPerBottle_NGN) total_cost, 
-SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN CostPerBottle_NGN ELSE 0 END) AS amount_lost,
-SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN CostPerBottle_NGN ELSE 0 END)*100.0/
-SUM(CostPerBottle_NGN) AS amount_lost_percent
+    -- % of bottles affected by underfill
+    SUM(CASE WHEN defect_type IN ('Underfilled', 'both') THEN 1 ELSE 0 END) * 100.0 
+        / NULLIF(COUNT(BottleBatchID_Natural), 0) AS underfill_bottle_percent,
 
-FROM FactProductionEvent f
-JOIN DimBottleBatch b ON f.BottleBatchSK = b.BottleBatchSK
-JOIN DimNozzle n ON f.FillerNozzleSK = n.NozzleSK
-WHERE LineID = 'Line1' AND FillerMachineID_Natural = 'Filler_11'
+    -- Total underfilled juice in litres (convert ml to litres and ensure positive value)
+    SUM(UnderfillAmount_ml * -1) / 1000.0 AS total_underfilled_juice_litres,
 
-GROUP BY Datekey, NozzleID_Natural,
-CASE WHEN DateKey < '2025-06-28' THEN 'Before' ELSE 'After' END
+    -- Total underfilled juice for affected bottles only
+    SUM(CASE 
+            WHEN defect_type IN ('Underfilled', 'both') THEN UnderfillAmount_ml * -1 
+            ELSE 0 
+        END) / 1000.0 AS total_juice_lost_litres,
 
-ORDER BY DateKey,NozzleID_Natural;
+    -- % of total juice lost due to underfill
+    SUM(CASE 
+            WHEN defect_type IN ('Underfilled', 'both') THEN UnderfillAmount_ml * -1 
+            ELSE 0 
+        END) * 100.0 
+        / NULLIF(SUM(UnderfillAmount_ml * -1), 0) AS juice_waste_percent,
+
+    -- Total cost of bottles in NGN
+    SUM(CostPerBottle_NGN) AS total_bottle_cost_ngn,
+
+    -- Cost lost due to underfilled bottles
+    SUM(CASE 
+            WHEN defect_type IN ('Underfilled', 'both') THEN CostPerBottle_NGN 
+            ELSE 0 
+        END) AS cost_lost_due_to_underfill_ngn,
+
+    -- % of total cost lost
+    SUM(CASE 
+            WHEN defect_type IN ('Underfilled', 'both') THEN CostPerBottle_NGN 
+            ELSE 0 
+        END) * 100.0 
+        / NULLIF(SUM(CostPerBottle_NGN), 0) AS cost_lost_percent
+
+FROM prepped_data
+GROUP BY 
+    DateKey,
+    NozzleID_Natural,
+    period
+ORDER BY 
+    DateKey,
+    NozzleID_Natural;
 ```
 
 
