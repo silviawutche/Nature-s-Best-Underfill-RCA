@@ -167,13 +167,13 @@ Using the **5 Whys**, we traced the root cause to worn out nozzles that have not
 We identified bottleneck when working on the production data and we tried to imprve performance by:
 * Adding a clustered index on the Date column: This was because most of the queries were filtered and grouped by date..this helped speed performance
 * Adding a filtered index on the defect_type column: This was because we frequently used the WHERE clause here
--- WHAT INDEXES 
--- HOW PERFORMANCE IMPROVED
+* Adding a non-clustered index on FillerNozzleSK (a foreign key heavily used in joins)
+*Results*: CPU usage remained stable at 0.7; I/O reduced from 37.54 to 24.60.
 
 VISUALIZATIONS
 -- CHARTS USED AND WHY
 -- THE STORY EACH CHART TOOL
-TOOLS
+
 
 RECOMMENDATIONS
 -- LIST ACTIONS
