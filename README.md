@@ -161,7 +161,7 @@ ORDER BY
 After analyzing underfill patterns by shift, juice batch and also the Line 1 filler, we found that over 95% of the underfilled bottles came from **Nozzles 2 and 4**, with the issue starting after June 28(spike start). These Nozzles have shown no failure or problems prior to the spike date.
 Using the **5 Whys**, we traced the root cause to worn out nozzles that have not been replaced in over 40 months because there was no monitoring procedures.
 ![](https://github.com/silviawutche/Nature-s-Best-Underfill-RCA/blob/main/Resources/Root%20Cause%20Identification.png)
--- 5 WHYS
+
 
 ### QUERY OPTIMIZATION
 We identified bottleneck when working on the production data and we tried to imprve performance by:
@@ -177,12 +177,13 @@ We identified bottleneck when working on the production data and we tried to imp
 
 
 ### RECOMMENDATIONS
--- LIST ACTIONS
+
 * Because Nozzle 2 and 4 have not been replace in over 17 months and since it causes 95% of the underfilled issues, we recommend that they should be replaced ( by Maintenance) and immediately.
 * Given that the maintenance was overdue by 17 months and this went unnoticed, it is recommended that a formal policy be implemented to ensure all maintenance schedules are strictly monitored and adhered to, to prevent future occurrences (by Production line Manager)
 * Because defect trends were not monitored, we recommend building a dashboard to track maintenance schedules and fill rate in real time to enable timely detection of any anomalies. (Data Team)
 
-WHY WE ARE CONFIDENT THE FIX WILL WORK
+### WHY WE ARE CONFIDENT THE FIX WILL WORK
+
 Together, these measures addressed both the symptom (underfill) and the cause (lack of tracking and delayed maintenance).
 
 
