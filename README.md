@@ -182,7 +182,22 @@ RECOMMENDATIONS
 * Because defect trends were not monitored, we recommend building a dashboard to track maintenance schedules and fill rate in real time to enable timely detection of any anomalies. (Data Team)
 
 WHY WE ARE CONFIDENT THE FIX WILL WORK
-* 
+Together, these measures addressed both the symptom (underfill) and the cause (lack of tracking and delayed maintenance).
+
+
+* Over 90% of underfilled bottles during the spike were traced to Nozzles 2 and 4
+   These nozzles had no issues prior to June 23, confirming a recent degradation
+
+* The spike started immediately after June 20, with no changes in juice type, shift schedule, or bottle supplier
+
+* Other hypotheses such as shift inconsistency, juice viscosity, and supplier change were ruled out using aggregated analysis and joins
+
+
+* Replacing aging or damaged mechanical parts (like filler nozzles) is a well-accepted maintenance practice
+
+Logically, eliminating the faulty nozzles would restore normal fill rates
+
+This gave us confidence in recommending nozzle replacement as the primary corrective action
 
 
 
