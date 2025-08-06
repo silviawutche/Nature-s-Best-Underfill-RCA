@@ -168,6 +168,7 @@ We identified bottleneck when working on the production data and we tried to imp
 * Adding a clustered index on the Date column: This was because most of the queries were filtered and grouped by date..this helped speed performance
 * Adding a filtered index on the defect_type column: This was because we frequently used the WHERE clause here
 * Adding a non-clustered index on FillerNozzleSK (a foreign key heavily used in joins)
+  
 *Results*: CPU usage remained stable at 0.7; I/O reduced from 37.54 to 24.60.
 
 ### VISUALIZATIONS
